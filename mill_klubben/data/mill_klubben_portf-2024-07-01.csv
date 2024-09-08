@@ -1,0 +1,38 @@
+;Instrument;Antal;Åbningspris;Investor;Amount;Currency;Stockexchange;Ticker
+0;ALK_B;99;72.55;Lars Persson;7182.45;DKK;xcse;ALK-B.CO
+1;BELCO;1600;16.9;Lars Persson;27039.999999999996;NOK;xosl;BELCO.OL
+2;TYRES;348;10.22;Lars Persson;3556.5600000000004;EUR;xhel;TYRES.HE
+3;NIBE_B;500;89.28;Lars Persson;44640.0;SEK;xome;NIBE-B.ST
+4;BAVA;150;148.9;Lars Persson;22335.0;DKK;xcse;BAVA.CO
+5;HOFI;550;37.75;Lars Persson;20762.5;SEK;xome;HOFI.ST
+6;SYNSAM;555;54.6;Lars Persson;30303.0;SEK;xome;SYNSAM.ST
+7;SEYE;290;96.3;Lars Persson;27927.0;SEK;xome;SEYE.ST
+8;NOBLE;60;336.5;Lars Persson;20190.0;DKK;xcse;NOBLE.CO
+9;BOL;90;325.8;Lars Persson;29322.0;SEK;xome;BOL.ST
+10;SHOT;560;65.15;Lars Persson;36484.0;SEK;xome;SHOT.ST
+11;GOMX;1800;17.22;Lau Svenssen;30995.999999999996;SEK;xome;GOMX.ST
+12;BAVA;300;197.58;Lau Svenssen;59274.00000000001;DKK;xcse;BAVA.CO
+13;TNP;150;15.44;Lau Svenssen;2316.0;USD;xnys;TNP
+14;NEM;100;47.92;Lau Svenssen;4792.0;USD;xnys;NEM
+15;DNORD;180;350.8;Lau Svenssen;63144.0;DKK;xcse;DNORD.CO
+16;PHO;1000;58.83;Lau Svenssen;58830.0;NOK;xosl;PHO.OL
+17;GUBRA;65;309.0;Lau Svenssen;20085.0;DKK;xcse;GUBRA.CO
+18;NDA;45;74.95;Lau Svenssen;3372.75;EUR;xetr;NDA.DE
+19;BABA;131;84.42;Michael Friis Jørgensen;11059.02;USD;xnys;BABA
+20;TDOC;15;94.84;Michael Friis Jørgensen;1422.6000000000001;USD;xnys;TDOC
+21;BAYN;100;52.92;Michael Friis Jørgensen;5292.0;EUR;xetr;BAYN.DE
+22;ISS;131;129.75;Michael Friis Jørgensen;16997.25;DKK;xcse;ISS.CO
+23;BHIL;4000;0.62;Michael Friis Jørgensen;2480.0;USD;xnys;BHIL
+24;NOVO_B;5;646.3;Michael Friis Jørgensen;3231.5;DKK;xcse;NOVO-B.CO
+25;SCHO;20;525.0;Michael Friis Jørgensen;10500.0;DKK;xcse;SCHO.CO
+26;OKLO;45;15.48;Michael Friis Jørgensen;696.6;USD;xnys;OKLO
+27;INRG;182;7.35;Michael Friis Jørgensen;1337.7;EUR;xmil;INRG.MI
+28;TOM;114;134.4;Michael Friis Jørgensen;15321.6;NOK;xosl;TOM.OL
+29;WCLD;48;27.47;Michael Friis Jørgensen;1318.56;EUR;xmil;WCLD.MI
+30;SNOW;11;130.23;Michael Friis Jørgensen;1432.53;USD;xnys;SNOW
+31;TSLA;93;223.44;Anders Bæk;20779.92;USD;xnas;TSLA
+32;AAPL;38;191.21;Anders Bæk;7265.9800000000005;USD;xnas;AAPL
+33;MSFT;13;378.31;Anders Bæk;4918.03;USD;xnas;MSFT
+34;META;1;347.21;Anders Bæk;347.21;USD;xnas;META
+35;TSM;2;135.75;Anders Bæk;271.5;USD;xnys;TSM
+36;NVDA;90;51.14;Anders Bæk;4602.6;USD;xnas;NVDA
