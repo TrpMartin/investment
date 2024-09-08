@@ -349,6 +349,7 @@ for i in investor_colors:
     patch.append(patches.Patch(color=investor_colors[i]))
 ax1.legend(handles=patch, labels=investor_colors.keys(), fontsize=11)
 
+plt.savefig(fname='portfolio_movements.png', dpi=150, transparent=None)
 plt.show();
 st.pyplot(fig=plt, clear_figure=None, use_container_width=True)
 # -

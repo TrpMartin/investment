@@ -26,6 +26,7 @@ import datetime as dt
 import numpy as np
 
 GET_NEW_TRANSACTIONS = True
+DATA_DIR = './data/'
 today = dt.datetime.today().date()
 yesterday = (dt.datetime.today() - dt.timedelta(days=1)).date()
 
@@ -100,15 +101,9 @@ if GET_NEW_TRANSACTIONS:
 
 if GET_NEW_TRANSACTIONS:
     df = df.reset_index(drop=True) # reset before file saving
-    df.to_csv('/home/pi/mynotebooks/data/MK_files/mill_klubben_portf-'+str(today)+'.csv', sep=';', encoding='utf-8')
+    df.to_csv(DATA_DIR+'mill_klubben_portf-'+str(today)+'.csv', sep=';', encoding='utf-8')
     print('Millionærklubbens portfolio was saved to file.')
-else: ## read the yesterday file
-    try:
-        df = pd.read_csv('/home/pi/mynotebooks/data/MK_files/mill_klubben_portf-'+str(yesterday)+'.csv', 
-                     sep=';', encoding='utf-8', index_col=[0])
-    except:
-        print("ERROR: Could not read yesterday's file!")
-# ## Download the prices for all traded tickers
+
 
 # +
 #res
