@@ -40,6 +40,11 @@ from mystockmodule import retrievals, conversions
 
 ## constants
 DATA_DIR = './data/' # this is where the portfolio CSV files are being downloaded
+if os.path.isdir(DATA_DIR):
+    print("Dir exists")
+else:
+    print("Dir not exisitng")
+    DATA_DIR = '/home/pi/mynotebooks/projects/investment/mill_klubben/data/'
 SQL_MK_PRICE_PATH = 'sqlite:///'+DATA_DIR+'MK_PRICES.db'
 
 mycolors=[
@@ -64,28 +69,32 @@ yesterday = (today - dt.timedelta(days=1))
 #round to decimals in pandas tables output
 pd.options.display.float_format = '{:,.2f}'.format
 
-# +
-# use glob to get all the csv files in the folder path = os.getcwd()
-csv_files = glob.glob(os.path.join(DATA_DIR, "*.csv"))
+if os.path.isdir(DATA_DIR):
 
-df = pd.DataFrame()
-dates = []
-# loop over the list of csv files
-for f in csv_files:
-    # print the location and filename
-    #print('Reading file:', f.split("\\")[-1]) #debug. Will be read in non-order. 
-      
-    # read the csv file
-    x = pd.read_csv(f, sep=';', index_col=[0])
-    extracted_date = dparser.parse(f, fuzzy=True) # date parser from file name. No date in the CSV. Maybe add this in 2024?
-    x['Date'] = extracted_date
-    dates.append(extracted_date.isoformat()) 
+    # use glob to get all the csv files in the folder path = os.getcwd()
+    csv_files = glob.glob(os.path.join(DATA_DIR, "*.csv"))
     
-    df = pd.concat([x,df], axis=0)
-
-dates.sort()
-df = df.sort_values('Date').reset_index(drop=True)
-## Note: "Amount" is calculated during scraping from Antal * Åbningspris
+    df = pd.DataFrame()
+    dates = []
+    # loop over the list of csv files
+    for f in csv_files:
+        # print the location and filename
+        #print('Reading file:', f.split("\\")[-1]) #debug. Will be read in non-order. 
+          
+        # read the csv file
+        x = pd.read_csv(f, sep=';', index_col=[0])
+        extracted_date = dparser.parse(f, fuzzy=True) # date parser from file name. No date in the CSV. Maybe add this in 2024?
+        x['Date'] = extracted_date
+        dates.append(extracted_date.isoformat()) 
+        df = pd.concat([x,df], axis=0)
+    
+    #dates.sort()
+    
+    df = df.sort_values('Date').reset_index(drop=True)
+    ## Note: "Amount" is calculated during scraping from Antal * Åbningspris
+else:
+    print("NO DIRECTORY!")
+    pass
 
 # +
 # fix naming errors on website
