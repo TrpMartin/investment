@@ -24,9 +24,10 @@ import pandas as pd
 from time import sleep
 import datetime as dt
 import numpy as np
+from pathlib import Path
+
 
 GET_NEW_TRANSACTIONS = True
-DATA_DIR = './data/'
 today = dt.datetime.today().date()
 yesterday = (dt.datetime.today() - dt.timedelta(days=1)).date()
 
@@ -101,7 +102,11 @@ if GET_NEW_TRANSACTIONS:
 
 if GET_NEW_TRANSACTIONS:
     df = df.reset_index(drop=True) # reset before file saving
-    df.to_csv(DATA_DIR+'mill_klubben_portf-'+str(today)+'.csv', sep=';', encoding='utf-8')
+    base_path = Path(__file__).parent
+    file = './data/mill_klubben_portf-'+str(today)+'.csv'
+    file_path = (base_path / file).resolve()
+    
+    df.to_csv(file_path, sep=';', encoding='utf-8')
     print('Millionærklubbens portfolio was saved to file.')
 
 

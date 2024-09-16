@@ -32,20 +32,18 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import matplotlib.dates as mdates
 import matplotlib.patches as patches
+from pathlib import Path
 
 from mystockmodule import retrievals, conversions
 
 # %matplotlib inline
 # -
 
-## constants
-DATA_DIR = './data/' # this is where the portfolio CSV files are being downloaded
-if os.path.isdir(DATA_DIR):
-    print("Dir exists")
-else:
-    print("Dir not exisitng")
-    DATA_DIR = '/home/pi/mynotebooks/projects/investment/mill_klubben/data/'
-SQL_MK_PRICE_PATH = 'sqlite:///'+DATA_DIR+'MK_PRICES.db'
+base_path = Path(__file__).parent
+data_path = base_path / 'data'
+sql_db_path = 'sqlite:///'+str(data_path)+'/MK_PRICES.db'
+#sql_database = 'sqlite:////home/pi/projects/investment/mill_klubben/data/MK_PRICES.db'
+
 
 mycolors=[
         "#0068c9",
@@ -69,32 +67,28 @@ yesterday = (today - dt.timedelta(days=1))
 #round to decimals in pandas tables output
 pd.options.display.float_format = '{:,.2f}'.format
 
-if os.path.isdir(DATA_DIR):
+# +
+# use glob to get all the csv files in the folder path = os.getcwd()
+csv_files = glob.glob(os.path.join(data_path, "*.csv"))
 
-    # use glob to get all the csv files in the folder path = os.getcwd()
-    csv_files = glob.glob(os.path.join(DATA_DIR, "*.csv"))
-    
-    df = pd.DataFrame()
-    dates = []
-    # loop over the list of csv files
-    for f in csv_files:
-        # print the location and filename
-        #print('Reading file:', f.split("\\")[-1]) #debug. Will be read in non-order. 
-          
-        # read the csv file
-        x = pd.read_csv(f, sep=';', index_col=[0])
-        extracted_date = dparser.parse(f, fuzzy=True) # date parser from file name. No date in the CSV. Maybe add this in 2024?
-        x['Date'] = extracted_date
-        dates.append(extracted_date.isoformat()) 
-        df = pd.concat([x,df], axis=0)
-    
-    #dates.sort()
-    
-    df = df.sort_values('Date').reset_index(drop=True)
-    ## Note: "Amount" is calculated during scraping from Antal * Åbningspris
-else:
-    print("NO DIRECTORY!")
-    pass
+df = pd.DataFrame()
+dates = []
+# loop over the list of csv files
+for f in csv_files:
+    # print the location and filename
+    #print('Reading file:', f.split("\\")[-1]) #debug. Will be read in non-order. 
+      
+    # read the csv file
+    x = pd.read_csv(f, sep=';', index_col=[0])
+    extracted_date = dparser.parse(f, fuzzy=True) # date parser from file name. No date in the CSV. Maybe add this in 2024?
+    x['Date'] = extracted_date
+    dates.append(extracted_date.isoformat()) 
+    df = pd.concat([x,df], axis=0)
+
+#dates.sort()
+
+df = df.sort_values('Date').reset_index(drop=True)
+
 
 # +
 # fix naming errors on website
@@ -193,7 +187,7 @@ mbs = m.set_index(['Investor', 'Instrument']).merge(
 # have this here, so the streamlit is loaded
 
 # +
-prices = retrievals.sql_price(list(m.Instrument.unique()), SQL_MK_PRICE_PATH )
+prices = retrievals.sql_price(list(m.Instrument.unique()), sql_db_path )
 prices = prices.sort_index()
 
 ## make consecutive, because I have some Buys that are on weekends (website update)
@@ -358,7 +352,7 @@ for i in investor_colors:
     patch.append(patches.Patch(color=investor_colors[i]))
 ax1.legend(handles=patch, labels=investor_colors.keys(), fontsize=11)
 
-plt.savefig(fname='portfolio_movements.png', dpi=150, transparent=None)
+plt.savefig(fname=str(base_path)+'/portfolio_movements.png', dpi=150, transparent=None)
 plt.show();
 st.pyplot(fig=plt, clear_figure=None, use_container_width=True)
 # -

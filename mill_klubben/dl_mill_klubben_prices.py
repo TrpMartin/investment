@@ -22,9 +22,11 @@ import glob
 import dateutil.parser as dparser
 import pandas as pd
 from time import sleep
-from mystockmodule import retrievals, definitions, conversions
 import datetime as dt
 import numpy as np
+from pathlib import Path
+from mystocks import retrievals, definitions, conversions
+
 
 ex_dict = {
     'xcse': '.CO',
@@ -43,7 +45,11 @@ ex_dict = {
     'xnas': ''
           }
 
-DATA_DIR = '/home/pi/mynotebooks/data/MK_files/'
+# +
+base_path = Path(__file__).parent
+data_path = base_path / 'data'
+sql_db_path = 'sqlite:///'+str(data_path)+'/MK_PRICES.db'
+
 today = dt.date.today()
 yesterday = (today - dt.timedelta(days=1))
 #round to decimals in pandas tables output
@@ -51,7 +57,7 @@ pd.options.display.float_format = '{:,.2f}'.format
 
 # +
 # use glob to get all the csv files in the folder path = os.getcwd()
-csv_files = glob.glob(os.path.join(DATA_DIR, "*.csv"))
+csv_files = glob.glob(os.path.join(data_path, "*.csv"))
 
 df = pd.DataFrame()
 dates = []
@@ -104,12 +110,15 @@ dl = df[['Instrument', 'Ticker']].copy().drop_duplicates().reset_index(drop=True
 # +
 ##problem
 ##dl = dl.loc[dl['Instrument'] == 'ALCC'].reset_index() ## ah does not exist any longer
-# -
+
+# +
 
 for i in range(0,len(dl)):
-    res = retrievals.yq_price_importer(dl.loc[i,'Ticker'], dl.loc[i,'Instrument'], 
-                                   db_path=definitions.SQL_MK_PRICE_PATH)
+    res = retrievals.yq_price_importer(dl.loc[i,'Ticker'], dl.loc[i,'Instrument'], db_path=sql_db_path)
+# -
 
+print("")
+print("#"*50)
 print("MK stock prices download finished!")
 
 

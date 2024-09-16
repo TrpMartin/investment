@@ -1,0 +1,42 @@
+;Instrument;Antal;Åbningspris;Investor;Amount;Currency;Stockexchange;Ticker
+0;BELCO;1600;16.9;Lars Persson;27039.999999999996;NOK;xosl;BELCO.OL
+1;TYRES;348;10.22;Lars Persson;3556.5600000000004;EUR;xhel;TYRES.HE
+2;NIBE_B;500;89.28;Lars Persson;44640.0;SEK;xome;NIBE-B.ST
+3;BAVA;150;148.9;Lars Persson;22335.0;DKK;xcse;BAVA.CO
+4;ALK_B;99;72.55;Lars Persson;7182.45;DKK;xcse;ALK-B.CO
+5;HOFI;550;37.75;Lars Persson;20762.5;SEK;xome;HOFI.ST
+6;NOBLE;60;336.5;Lars Persson;20190.0;DKK;xcse;NOBLE.CO
+7;SHOT;560;65.15;Lars Persson;36484.0;SEK;xome;SHOT.ST
+8;RAY_B;242;151.0;Lars Persson;36542.0;SEK;xome;RAY-B.ST
+9;TCM;328;67.0;Lars Persson;21976.0;DKK;xcse;TCM.CO
+10;GOMX;1800;17.22;Lau Svenssen;30995.999999999996;SEK;xome;GOMX.ST
+11;BAVA;300;197.58;Lau Svenssen;59274.00000000001;DKK;xcse;BAVA.CO
+12;NEM;100;47.92;Lau Svenssen;4792.0;USD;xnys;NEM
+13;DNORD;180;350.8;Lau Svenssen;63144.0;DKK;xcse;DNORD.CO
+14;PHO;1000;58.83;Lau Svenssen;58830.0;NOK;xosl;PHO.OL
+15;GUBRA;65;309.0;Lau Svenssen;20085.0;DKK;xcse;GUBRA.CO
+16;NDA;45;74.95;Lau Svenssen;3372.75;EUR;xetr;NDA.DE
+17;TEN_NEW;150;15.44;Lau Svenssen;2316.0;USD;xnys;TEN-NEW
+18;BABA;91;87.08;Michael Friis Jørgensen;7924.28;USD;xnys;BABA
+19;TDOC;15;94.84;Michael Friis Jørgensen;1422.6000000000001;USD;xnys;TDOC
+20;BAYN;100;52.92;Michael Friis Jørgensen;5292.0;EUR;xetr;BAYN.DE
+21;ISS;131;129.75;Michael Friis Jørgensen;16997.25;DKK;xcse;ISS.CO
+22;NOVO_B;28;838.21;Michael Friis Jørgensen;23469.88;DKK;xcse;NOVO-B.CO
+23;SCHO;20;525.0;Michael Friis Jørgensen;10500.0;DKK;xcse;SCHO.CO
+24;OKLO;45;15.48;Michael Friis Jørgensen;696.6;USD;xnys;OKLO
+25;INRG;182;7.35;Michael Friis Jørgensen;1337.7;EUR;xmil;INRG.MI
+26;WCLD;48;27.47;Michael Friis Jørgensen;1318.56;EUR;xmil;WCLD.MI
+27;VWS;65;154.0;Michael Friis Jørgensen;10010.0;DKK;xcse;VWS.CO
+28;ALMB;1600;12.05;Michael Friis Jørgensen;19280.0;DKK;xcse;ALMB.CO
+29;CARLb;12;769.8;Michael Friis Jørgensen;9237.599999999999;DKK;xcse;CARLb.CO
+30;TOM;65;152.5;Michael Friis Jørgensen;9912.5;NOK;xosl;TOM.OL
+31;SNOW;17;119.67;Michael Friis Jørgensen;2034.39;USD;xnys;SNOW
+32;BHIL;114;21.59;Michael Friis Jørgensen;2461.2599999999998;USD;xnas;BHIL
+33;ASML;2;684.7;Michael Friis Jørgensen;1369.4;EUR;xams;ASML.AS
+34;TSLA;93;223.44;Anders Bæk;20779.92;USD;xnas;TSLA
+35;AAPL;38;191.21;Anders Bæk;7265.9800000000005;USD;xnas;AAPL
+36;MSFT;13;378.31;Anders Bæk;4918.03;USD;xnas;MSFT
+37;META;1;347.21;Anders Bæk;347.21;USD;xnas;META
+38;TSM;2;135.75;Anders Bæk;271.5;USD;xnys;TSM
+39;NVDA;68;51.14;Anders Bæk;3477.52;USD;xnas;NVDA
+40;GOOGL;15;171.33;Anders Bæk;2569.9500000000003;USD;xnas;GOOGL
