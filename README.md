@@ -1,3 +1,3 @@
 # Stock Market Investment projects
 
-First project is on the popular Danish podcast Millionærklubben from Danmarks Radio
+First project is about the popular Danish podcast Millionærklubben sponsored by euroinvestor.dk and Saxo Bank.
