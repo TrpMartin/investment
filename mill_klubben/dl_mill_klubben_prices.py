@@ -24,7 +24,6 @@ import pandas as pd
 from time import sleep
 import datetime as dt
 import numpy as np
-from pathlib import Path
 from mystocks import retrievals, definitions, conversions
 
 
@@ -46,14 +45,21 @@ ex_dict = {
           }
 
 # +
-base_path = Path(__file__).parent
-data_path = base_path / 'data'
+#base_path = Path(__file__).parent
+#data_path = base_path / 'data'
+
+
+base_path = os.path.abspath('')
+data_path = base_path + '/data'
 sql_db_path = 'sqlite:///'+str(data_path)+'/MK_PRICES.db'
 
 today = dt.date.today()
 yesterday = (today - dt.timedelta(days=1))
 #round to decimals in pandas tables output
 pd.options.display.float_format = '{:,.2f}'.format
+
+# +
+#sql_db_path
 
 # +
 # use glob to get all the csv files in the folder path = os.getcwd()
@@ -98,20 +104,25 @@ df.loc[(df.Instrument == 'GOMX_TR'), 'Instrument'] = 'GOMX'
 df.loc[(df.Ticker == 'GOMX-TR.ST'), 'Ticker'] = 'GOMX.ST'
 df.loc[(df.Instrument == 'CARLb'), 'Instrument'] = 'CARL_B'
 df.loc[(df.Ticker == 'CARLb.CO'), 'Ticker'] = 'CARL-B.CO'
-
+df.loc[(df.Ticker == 'TEN-NEW'), 'Ticker'] = 'TEN'
+df.loc[(df.Instrument == 'TEN_NEW'), 'Instrument'] = 'TEN'
+df.loc[(df.Ticker == 'SKFb.ST'), 'Ticker'] = 'SKF-B.ST'
+df.loc[(df.Instrument == 'SKFb'), 'Instrument'] = 'SKF_B'
 
 # +
-#sorted(df.Instrument.unique())
+#df.loc[df.Date == dt.date.today().strftime('%Y-%m-%d')]
 # -
+
+df.loc[df.Ticker == 'NDA-DK.CO']
+
+print(sorted(df.Ticker.unique()))
 
 # make a new dataframe 'dl' which contains only the unique tickers for stock price downloading
 dl = df[['Instrument', 'Ticker']].copy().drop_duplicates().reset_index(drop=True)
 
 # +
-##problem
-##dl = dl.loc[dl['Instrument'] == 'ALCC'].reset_index() ## ah does not exist any longer
-
-# +
+## test
+#dl = dl[:4]
 
 for i in range(0,len(dl)):
     res = retrievals.yq_price_importer(dl.loc[i,'Ticker'], dl.loc[i,'Instrument'], db_path=sql_db_path)

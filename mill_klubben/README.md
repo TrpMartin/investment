@@ -5,3 +5,5 @@ The analysis produces a figure that displays the buy and sell events as some typ
 
 An example is below:
 ![Example of portfolio movements](portfolio_movements.png)
+
+this is newer

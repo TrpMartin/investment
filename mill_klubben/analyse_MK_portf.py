@@ -32,17 +32,19 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import matplotlib.dates as mdates
 import matplotlib.patches as patches
-from pathlib import Path
 
-from mystockmodule import retrievals, conversions
+from mystocks import retrievals, conversions
 
 # %matplotlib inline
 # -
 
-base_path = Path(__file__).parent
-data_path = base_path / 'data'
-sql_db_path = 'sqlite:///'+str(data_path)+'/MK_PRICES.db'
-#sql_database = 'sqlite:////home/pi/projects/investment/mill_klubben/data/MK_PRICES.db'
+# this works, but with streamlit, the path is ../pages/ and then the data folder is missing
+#base_path = os.path.abspath('') 
+# easier with fixed path
+base_path = '/home/pi/projects/investment/mill_klubben/'
+data_path = base_path + 'data/'
+sql_db_path = 'sqlite:///'+str(data_path)+'MK_PRICES.db'
+
 
 
 mycolors=[
@@ -71,6 +73,13 @@ pd.options.display.float_format = '{:,.2f}'.format
 # use glob to get all the csv files in the folder path = os.getcwd()
 csv_files = glob.glob(os.path.join(data_path, "*.csv"))
 
+#print("Data path is", data_path)
+#print("SQL path is", sql_db_path)
+#print("CSV files are", csv_files)
+
+
+# +
+## create dataframe from daily scraped website CSV files  
 df = pd.DataFrame()
 dates = []
 # loop over the list of csv files
@@ -85,12 +94,10 @@ for f in csv_files:
     dates.append(extracted_date.isoformat()) 
     df = pd.concat([x,df], axis=0)
 
-#dates.sort()
+df = df.drop_duplicates()
+# -
 
-df = df.sort_values('Date').reset_index(drop=True)
 
-
-# +
 # fix naming errors on website
 df.loc[(df.Instrument == 'AKERBP'), 'Instrument'] = 'AKRBP'
 df.loc[(df.Instrument == 'ALKb'), 'Instrument'] = 'ALK_B'
@@ -101,19 +108,23 @@ df.loc[(df.Instrument == 'NOVO-B'), 'Instrument'] = 'NOVO_B'
 df.loc[(df.Instrument == 'NZYMb'), 'Instrument'] = 'NZYM_B'
 df.loc[(df.Instrument == 'NZYM-B'), 'Instrument'] = 'NZYM_B'
 df.loc[(df.Instrument == 'MAERSKb'), 'Instrument'] = 'MAERSK_B'
-df.loc[(df.Instrument == 'GOMX_TR'), 'Antal'] = df.Antal/3 # was a 1/3 split (Lau)
+#df.loc[(df.Instrument == 'GOMX_TR'), 'Antal'] = df.Antal/3 # was a 1/3 split (Lau)
 df.loc[(df.Instrument == 'GOMX_TR'), 'Instrument'] = 'GOMX'
 df.loc[(df.Ticker == 'GOMX-TR.ST'), 'Ticker'] = 'GOMX.ST'
 df.loc[(df.Instrument == 'CARLb'), 'Instrument'] = 'CARL_B'
 df.loc[(df.Ticker == 'CARLb.CO'), 'Ticker'] = 'CARL-B.CO'
+df.loc[(df.Ticker == 'TEN-NEW'), 'Ticker'] = 'TEN'
+df.loc[(df.Instrument == 'TEN_NEW'), 'Instrument'] = 'TEN'
+df.loc[(df.Ticker == 'SKFb.ST'), 'Ticker'] = 'SKF-B.ST'
+df.loc[(df.Instrument == 'SKFb'), 'Instrument'] = 'SKF_B'
 
+# +
 ## Delisted must be removed it is just simpler this way
-df = df.drop(df[df.Instrument == 'VOYG'].index) # Voyager got delisted
-df = df.drop(df[df.Instrument == 'EURN'].index) # I cannot get price data :-(
-df = df.drop(df[df.Instrument == 'TEST'].index) # Michael bought & sold TEST, but I cannot get prices because I do not know from which stock exchange
-df = df.drop(df[df.Instrument == 'LOCK-A017'].index) # no idea what that was
-df = df.drop(df[df.Instrument == 'TEN_NEW'].index) # Lau bytte aktier
-df = df.drop(df[df.Instrument == 'ALCC'].index) ## delisted?
+delisted = ['VOYG', 'EURN', 'TEST', 'ALCC', 'LOCK-A017']
+df = df[~df.Instrument.isin(delisted)].dropna()
+## remove all Instruments that made it in the df, but actually were not traded and Antal is therefore 0 (aktie bytte)
+df = df.loc[~( (df.Antal.isna()) | (df.Antal==0) ) ]
+
 # the price in Milan is the same as in Germany
 df.Instrument = df.Instrument.replace({'INRG':'IQQH'}) # cannot download data for iShares Clean energy from Milan
 #df = df.drop(df[df.Instrument == 'INRG'].index) # cannot download data for iShares Clean energy from Milan
@@ -121,6 +132,9 @@ df = df.sort_values('Date').reset_index(drop=True)
 
 # +
 ##sorted(df.Instrument.unique())
+
+# +
+#df.tail()
 # -
 
 # ## FX for DKK conversion
@@ -426,11 +440,6 @@ fig.show();
 ## problem, if nothing sold, then the last figure (the big plot) is shown instead of the plot form the code above
 #st.pyplot(fig=fig, clear_figure=None, use_container_width=True)
 
-
-
-# +
-#df.loc[df.Instrument == 'RAY_B']
-# -
 
 
 
